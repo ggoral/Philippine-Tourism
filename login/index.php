@@ -13,8 +13,8 @@ if($_POST){
 	if($post['action'] == 'login'){
 		
 		$pass = $post['password'];
-		$sql = "SELECT * FROM ".$prefix."users WHERE user_login='".$post['username']."' LIMIT 1";
-		$res = $wpdb->get_row($sql);
+		$sql = $wpdb->prepare("SELECT * FROM %s users WHERE user_login= %s LIMIT 1", $prefix, $post['username']);
+		$res = $wpdb->query($sql);
 		
 		$password_hashed = $res->user_pass;
 		$plain_password = $pass;
